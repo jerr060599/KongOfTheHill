@@ -5,16 +5,15 @@ public class CharControl : MonoBehaviour
 {
 	public int player;
 	public bool canJump = false, canWalk = false;
-	float speed = Settings.defCharSpeed, jumpF = Settings.defJumpF, jumpTime = 0f, pushTime = 0f, curCamHeight = 0f;
+	float speed = Settings.defCharSpeed, jumpF = Settings.defJumpF, jumpTime = 0f, pushTime = 0f;
 	public static readonly float jumpCD = 0.05f, pushCD = 1f;
 	public Consumable item = null;
-	public GameObject camera, head, feet;
+	public GameObject head, feet;
 	public Rigidbody2D pysc;
 	// Use this for initialization
 	void Start ()
 	{
 		pysc = GetComponent<Rigidbody2D> ();
-		curCamHeight = camera.transform.position.y;
 	}
 
 	public void eat (Consumable c)
@@ -31,7 +30,6 @@ public class CharControl : MonoBehaviour
 		//Debug.Log (item == null);
 		jumpTime -= Time.deltaTime;
 		pushTime -= Time.deltaTime;
-		camera.transform.position = new Vector3 (4, curCamHeight += (head.transform.position.y - curCamHeight) * 0.1f, -1);
 		bool left = Input.GetKey (Settings.keys [player, Settings.left]);
 		bool right = Input.GetKey (Settings.keys [player, Settings.right]);
 		bool up = Input.GetKey (Settings.keys [player, Settings.up]) && jumpTime <= 0;

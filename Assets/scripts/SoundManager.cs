@@ -3,14 +3,7 @@ using System.Collections;
 
 public class SoundManager : MonoBehaviour
 {
-	public GameObject c0, c1;
 	public GameObject defSrc;
-
-	void Update ()
-	{
-		gameObject.transform.position = new Vector2 (0f, (c0.transform.position.y + c1.transform.position.y) / 2);
-	}
-
 	public AudioSource playOnListener (AudioClip clip, float volume = 1f)
 	{
 		GameObject src = (GameObject)Instantiate (defSrc, transform.position, transform.rotation);
