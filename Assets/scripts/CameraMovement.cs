@@ -4,7 +4,7 @@ using System.Collections;
 public class CameraMovement : MonoBehaviour
 {
 	public GameObject c0, c1;
-	float sizeScale = 0.6f;
+	float sizeScale = 0.5f;
 	Camera cam;
 
 	void Start ()
