@@ -18,7 +18,7 @@ public class Checkpoint : Activatable
 		orangeLight.SetActive (false);
 		blueLight.SetActive (false);
 		(player.player == 0 ? orangeLight : blueLight).SetActive (true);
-		sr.sprite = player.player == 0 ? orange : blue;
+		GetComponent<Animator> ().SetInteger ("state", player.player);
 		player.curSpawn = gameObject;
 	}
 
@@ -27,5 +27,6 @@ public class Checkpoint : Activatable
 		sr.sprite = neutral;
 		orangeLight.SetActive (false);
 		blueLight.SetActive (false);
+		GetComponent<Animator> ().SetInteger ("state", -1);
 	}
 }

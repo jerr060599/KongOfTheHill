@@ -4,6 +4,7 @@ using System.Collections;
 public class SoundManager : MonoBehaviour
 {
 	public static SoundManager script;
+	public AudioClip jump0;
 
 	void Start ()
 	{

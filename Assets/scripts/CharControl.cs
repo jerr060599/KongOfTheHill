@@ -21,7 +21,7 @@ public class CharControl : MonoBehaviour
 
 	public void kill ()
 	{
-		transform.position = new Vector3 (curSpawn.transform.position.x, curSpawn.transform.position.y, 0f);
+		transform.position = new Vector3 (curSpawn.transform.position.x, curSpawn.transform.position.y + 4f, 0f);
 	}
 
 	public bool eat (Consumable c)
@@ -92,10 +92,10 @@ public class CharControl : MonoBehaviour
 		if (onLadder)
 			pysc.velocity = new Vector2 (pysc.velocity.x, Settings.ladderSpeed);
 		else if (canJump) {
+			SoundManager.script.playOnListener (SoundManager.script.jump0);
 			pysc.AddForce (new Vector2 (0, jumpF));
 			jumpTime = jumpCD;
 		}
-		Debug.Log (onLadder);
 		onLadder = false;
 	}
 }
