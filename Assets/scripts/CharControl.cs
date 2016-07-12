@@ -12,7 +12,7 @@ public class CharControl : MonoBehaviour
 	public GameObject head, feet;
 	public Rigidbody2D pysc;
 	public GameObject curSpawn;
-	public Sprite walk0, walk1, fall;
+	public Sprite walk0, walk1, fallDown, fallUp;
 	SpriteRenderer sr;
 	bool variate = false;
 	Vector2 lastJuicePos;
@@ -78,8 +78,8 @@ public class CharControl : MonoBehaviour
 		canWalk = false;
 		if (pysc.velocity.y > Settings.maxYV)
 			pysc.velocity = new Vector2 (pysc.velocity.x, Settings.maxYV);
-		if (!(left || right || up))
-			return;
+		//if (!(left || right || up))
+		//	return;
 		Vector2 norm = new Vector2 (0, 0);
 		foreach (RaycastHit2D rh in Physics2D.CircleCastAll(feet.transform.position, 3f, Vector2.down, 0.2f))
 			if (!rh.collider.isTrigger && rh.normal.y > 0.3) {
@@ -106,16 +106,17 @@ public class CharControl : MonoBehaviour
 			pysc.AddForce (new Vector2 (0, jumpF));
 			jumpTime = jumpCD;
 		}
+		sr.sprite = variate ? walk0 : walk1;
 		if (onLadder && Mathf.Abs (lastJuicePos.y - pysc.position.y) > pixelPerSound) {
 			SoundManager.script.playOnListener (variate ? SoundManager.script.climb0 : SoundManager.script.climb1);
 			lastJuicePos = pysc.position;
 			variate = !variate;
-		}
-		if (canWalk && (lastJuicePos - pysc.position).sqrMagnitude > pixelPerSound * pixelPerSound) {
-			sr.sprite = variate ? walk0 : walk1;
+		} else if (canWalk && (lastJuicePos - pysc.position).sqrMagnitude > pixelPerSound * pixelPerSound) {
 			lastJuicePos = pysc.position;
 			variate = !variate;
 		}
+		if (!canWalk && !onLadder)
+			sr.sprite = pysc.velocity.y > 0 ? fallUp : fallDown;
 		onLadder = false;
 	}
 }
