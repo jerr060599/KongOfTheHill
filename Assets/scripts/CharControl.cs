@@ -12,11 +12,14 @@ public class CharControl : MonoBehaviour
 	public GameObject head, feet;
 	public Rigidbody2D pysc;
 	public GameObject curSpawn;
+	bool variate = false;
+	Vector2 lastJuicePos;
 	// Use this for initialization
 	void Start ()
 	{
 		pysc = GetComponent<Rigidbody2D> ();
 		curSpawn = baseSpawn;
+		lastJuicePos = pysc.position;
 	}
 
 	public void kill ()
@@ -97,6 +100,15 @@ public class CharControl : MonoBehaviour
 			SoundManager.script.playOnListener (SoundManager.script.jump0);
 			pysc.AddForce (new Vector2 (0, jumpF));
 			jumpTime = jumpCD;
+		}
+		if (canWalk)
+		if ((lastJuicePos - pysc.position).sqrMagnitude > 4f) {
+			if (onLadder) {
+				
+			} else {
+				
+			}
+			variate = !variate;
 		}
 		onLadder = false;
 	}

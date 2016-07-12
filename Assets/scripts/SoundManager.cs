@@ -4,7 +4,7 @@ using System.Collections;
 public class SoundManager : MonoBehaviour
 {
 	public static SoundManager script;
-	public AudioClip jump0, click0, death0, punch0;
+	public AudioClip jump0, click0, death0, punch0, climb0, climb1;
 
 	void Start ()
 	{
