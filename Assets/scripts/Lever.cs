@@ -8,13 +8,13 @@ public class Lever : Activatable
 	{
 	}
 
-	public void onActivation (CharControl player)
+	public override void onActivation (CharControl player)
 	{
-		Debug.Log ("Turned On");
+		SoundManager.script.playOnListener (SoundManager.script.click0, 0.2f);
 	}
 
-	public void onDeactivation (CharControl player)
+	public override void onDeactivation (CharControl player)
 	{
-		Debug.Log ("Turned Off");
+		SoundManager.script.playOnListener (SoundManager.script.click0, 0.2f);
 	}
 }

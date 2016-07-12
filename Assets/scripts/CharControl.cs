@@ -22,6 +22,7 @@ public class CharControl : MonoBehaviour
 	public void kill ()
 	{
 		transform.position = new Vector3 (curSpawn.transform.position.x, curSpawn.transform.position.y + 4f, 0f);
+		SoundManager.script.playOnListener (SoundManager.script.death0);
 	}
 
 	public bool eat (Consumable c)
@@ -44,7 +45,7 @@ public class CharControl : MonoBehaviour
 		bool use = Input.GetKeyDown (Settings.keys [player, Settings.use]);
 		bool push = Input.GetKeyDown (Settings.keys [player, Settings.push]) && pushTime < 0;
 		if (item != null && Input.GetKeyDown (Settings.keys [player, Settings.power])) {
-			item.use (gameObject);
+			item.use (this);
 			item = null;
 		}
 		if (push || use) {
@@ -62,6 +63,7 @@ public class CharControl : MonoBehaviour
 					if (c != this) {
 						c.pysc.AddForce (new Vector2 (c.pysc.position.x - feet.transform.position.x, c.pysc.position.y - feet.transform.position.y).normalized * Settings.pushF);
 						pushTime = pushCD;
+						SoundManager.script.playOnListener (SoundManager.script.punch0);
 						break;
 					}
 			}
