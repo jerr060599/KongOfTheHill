@@ -8,12 +8,12 @@ public class Lever : Activatable
 	{
 	}
 
-	public override void onActivation ()
+	public void onActivation (CharControl player)
 	{
 		Debug.Log ("Turned On");
 	}
 
-	public override void onDeactivation ()
+	public void onDeactivation (CharControl player)
 	{
 		Debug.Log ("Turned Off");
 	}

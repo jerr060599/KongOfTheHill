@@ -5,17 +5,26 @@ public class CameraMovement : MonoBehaviour
 {
 	public GameObject c0, c1;
 	float sizeScale = 0.5f;
+	Vector3 shakePos = Vector3.zero, curPos;
 	Camera cam;
+	public static CameraMovement script;
 
 	void Start ()
 	{
+		script = this;
+		curPos = transform.position;
 		cam = GetComponent<Camera> ();
 	}
 
 	void Update ()
 	{
-		gameObject.transform.position += ((c0.transform.position + c1.transform.position) / 2f - gameObject.transform.position) * 0.1f;
+		cam.transform.position = (curPos += ((c0.transform.position + c1.transform.position) / 2f - curPos) * 0.1f) + shakePos;
+		shakePos *= 0.7f;
 		cam.orthographicSize += (Mathf.Max (64f, (c0.transform.position - c1.transform.position).magnitude * sizeScale) - (float)cam.orthographicSize) * 0.1f;
 	}
 
+	public void shake ()
+	{
+		shakePos = new Vector3 (Random.value, Random.value, 0f).normalized * 10f;
+	}
 }

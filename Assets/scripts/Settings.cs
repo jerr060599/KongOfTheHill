@@ -9,6 +9,7 @@ public static class Settings
 	public static float maxSideSlip = 60f;
 	public static float maxYV = 83.21f;
 	public static float pushF = 10000f;
+	public static float ladderSpeed = 50f;
 	public static Vector2 activationArea = new Vector2 (24f, 24f);
 	public static readonly int up = 0, down = 1, left = 2, right = 3, power = 4, use = 5, push = 6;
 	public static KeyCode[,] keys = {

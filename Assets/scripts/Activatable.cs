@@ -6,8 +6,8 @@ public abstract class Activatable : MonoBehaviour
 	public bool activated = false;
 	public GameObject chainedActivatable = null;
 	public Sprite activatedTex, deactivatedTex;
-	Activatable nextActivatable = null;
-	SpriteRenderer sr;
+	protected Activatable nextActivatable = null;
+	protected SpriteRenderer sr;
 
 	void Start ()
 	{
@@ -20,22 +20,26 @@ public abstract class Activatable : MonoBehaviour
 			nextActivatable = chainedActivatable.GetComponent<Activatable> ();
 	}
 
-	public void activate ()
+	public virtual void activate (CharControl player)
 	{
 		if (activated) {
 			sr.sprite = deactivatedTex;
 			activated = false;
-			onDeactivation ();
+			onDeactivation (player);
 		} else {
 			sr.sprite = activatedTex;
 			activated = true;
-			onActivation ();
+			onActivation (player);
 		}
 		if (nextActivatable != null)
-			nextActivatable.activate ();
+			nextActivatable.activate (player);
 	}
 
-	public abstract void onActivation ();
+	public virtual void onActivation (CharControl player)
+	{
+	}
 
-	public abstract void onDeactivation ();
+	public virtual void onDeactivation (CharControl player)
+	{
+	}
 }

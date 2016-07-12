@@ -3,9 +3,8 @@ using System.Collections;
 
 public class Grenade : Consumable
 {
-
 	public override void onConsumption (GameObject player)
 	{
-		Debug.Log ("Here");
+		CameraMovement.script.shake ();
 	}
 }
