@@ -7,17 +7,20 @@ public class CharControl : MonoBehaviour
 	public int player;
 	public bool canJump = false, canWalk = false, onLadder = false;
 	float speed = Settings.defCharSpeed, jumpF = Settings.defJumpF, jumpTime = 0f, pushTime = 0f;
-	public static readonly float jumpCD = 0.05f, pushCD = 1f;
+	public static readonly float jumpCD = 0.05f, pushCD = 1f, pixelPerSound = 8f;
 	public Consumable item = null;
 	public GameObject head, feet;
 	public Rigidbody2D pysc;
 	public GameObject curSpawn;
+	public Sprite walk0, walk1, fall;
+	SpriteRenderer sr;
 	bool variate = false;
 	Vector2 lastJuicePos;
 	// Use this for initialization
 	void Start ()
 	{
 		pysc = GetComponent<Rigidbody2D> ();
+		sr = head.GetComponent<SpriteRenderer> ();
 		curSpawn = baseSpawn;
 		lastJuicePos = pysc.position;
 	}
@@ -85,14 +88,16 @@ public class CharControl : MonoBehaviour
 				if (rh.collider.sharedMaterial.friction != 0)
 					canWalk = true;
 			}
-		if (left ^ right)
-		if (canWalk) {
-			norm = norm.normalized;
-			pysc.AddForce (((left ? -speed : speed) * (new Vector2 (norm.y, -norm.x)) - pysc.velocity) * pysc.mass, ForceMode2D.Impulse);
-		} else if (pysc.velocity.x > -Settings.maxSideSlip && left)
-			pysc.AddForce (new Vector2 (-Settings.sideSlip, 0));
-		else if (pysc.velocity.x < Settings.maxSideSlip)
-			pysc.AddForce (new Vector2 (Settings.sideSlip, 0));
+		if (left ^ right) {
+			sr.flipX = left;
+			if (canWalk) {
+				norm = norm.normalized;
+				pysc.AddForce (((left ? -speed : speed) * (new Vector2 (norm.y, -norm.x)) - pysc.velocity) * pysc.mass, ForceMode2D.Impulse);
+			} else if (pysc.velocity.x > -Settings.maxSideSlip && left)
+				pysc.AddForce (new Vector2 (-Settings.sideSlip, 0));
+			else if (pysc.velocity.x < Settings.maxSideSlip)
+				pysc.AddForce (new Vector2 (Settings.sideSlip, 0));
+		}
 		if (up)
 		if (onLadder)
 			pysc.velocity = new Vector2 (pysc.velocity.x, Settings.ladderSpeed);
@@ -101,13 +106,14 @@ public class CharControl : MonoBehaviour
 			pysc.AddForce (new Vector2 (0, jumpF));
 			jumpTime = jumpCD;
 		}
-		if (canWalk)
-		if ((lastJuicePos - pysc.position).sqrMagnitude > 4f) {
-			if (onLadder) {
-				
-			} else {
-				
-			}
+		if (onLadder && Mathf.Abs (lastJuicePos.y - pysc.position.y) > pixelPerSound) {
+			SoundManager.script.playOnListener (variate ? SoundManager.script.climb0 : SoundManager.script.climb1);
+			lastJuicePos = pysc.position;
+			variate = !variate;
+		}
+		if (canWalk && (lastJuicePos - pysc.position).sqrMagnitude > pixelPerSound * pixelPerSound) {
+			sr.sprite = variate ? walk0 : walk1;
+			lastJuicePos = pysc.position;
 			variate = !variate;
 		}
 		onLadder = false;
