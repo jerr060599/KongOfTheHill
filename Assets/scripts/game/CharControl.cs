@@ -3,13 +3,12 @@ using System.Collections;
 
 public class CharControl : MonoBehaviour
 {
-	public GameObject baseSpawn;
+	public GameObject head, feet, baseSpawn, itemIcon;
 	public int player;
 	public bool canJump = false, canWalk = false, onLadder = false;
 	float speed = Settings.defCharSpeed, jumpF = Settings.defJumpF, jumpTime = 0f, pushTime = 0f;
 	public static readonly float jumpCD = 0.05f, pushCD = 1f, pixelPerSound = 8f;
 	public Consumable item = null;
-	public GameObject head, feet;
 	public Rigidbody2D pysc;
 	public GameObject curSpawn;
 	public Sprite walk0, walk1, fallDown, fallUp;
@@ -34,14 +33,20 @@ public class CharControl : MonoBehaviour
 
 	public bool eat (Consumable c)
 	{
-		if (item == null)
+		if (item == null) {
 			item = c;
-		return item == c;
+			itemIcon.GetComponent<UnityEngine.UI.Image> ().sprite = c.icon;
+			itemIcon.SetActive (true);
+			return true;
+		}
+		return false;
 	}
 	//float maxY = 0f;
 	void Update ()
 	{
 		//Debug.Log (maxY = Mathf.Max (maxY, pysc.velocity.y));
+		if (PauseMenu.paused)
+			return;
 		if (transform.position.y < -200f)
 			kill ();
 		jumpTime -= Time.deltaTime;
@@ -53,6 +58,7 @@ public class CharControl : MonoBehaviour
 		bool push = Input.GetKeyDown (Settings.keys [player, Settings.push]) && pushTime < 0;
 		if (item != null && Input.GetKeyDown (Settings.keys [player, Settings.power])) {
 			item.use (this);
+			itemIcon.SetActive (false);
 			item = null;
 		}
 		if (push || use) {
