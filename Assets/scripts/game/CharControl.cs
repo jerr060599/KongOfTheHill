@@ -28,7 +28,7 @@ public class CharControl : MonoBehaviour
 	{
 		pysc.velocity = Vector2.zero;
 		transform.position = new Vector3 (curSpawn.transform.position.x, curSpawn.transform.position.y + 4f, 0f);
-		SoundManager.script.playOnListener (SoundManager.script.death0);
+		SoundManager.script.playOnListener (SoundManager.script.death0, 0.4f);
 	}
 
 	public bool eat (Consumable c)
