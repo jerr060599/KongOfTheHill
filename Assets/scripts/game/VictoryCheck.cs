@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Checkpoint : Activatable
+public class VictoryCheck : Activatable
 {
 	public Sprite neutral;
-	public GameObject blueLight, orangeLight;
+	public GameObject blueLight, orangeLight, text;
 	Checkpoint tmp;
 	CharControl curOwner = null;
 
@@ -20,6 +20,10 @@ public class Checkpoint : Activatable
 		(player.player == 0 ? orangeLight : blueLight).SetActive (true);
 		GetComponent<Animator> ().SetInteger ("state", player.player);
 		player.curSpawn = gameObject;
+		text.GetComponent<UnityEngine.UI.Text> ().text = player.player == 0 ? "Orange has won!" : "Blue has won!";
+		text.GetComponent<UnityEngine.UI.Text> ().enabled = true;
+		if (nextActivatable != null)
+			nextActivatable.activate (player);
 	}
 
 	public void disown ()

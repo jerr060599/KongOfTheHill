@@ -10,10 +10,8 @@ public class TwoStopMover : Activatable
 	bool toPointOne = false;
 	Rigidbody2D pysc;
 	// Use this for initialization
-	void Start ()
+	public override void init ()
 	{
-		if (chainedActivatable != null)
-			nextActivatable = chainedActivatable.GetComponent<Activatable> ();
 		x1 = transform.position.x;
 		y1 = transform.position.y;
 		dx = x2 - x1;
@@ -25,6 +23,8 @@ public class TwoStopMover : Activatable
 	public override void activate (CharControl c)
 	{
 		stopTime = 0f;
+		if (nextActivatable != null)
+			nextActivatable.activate (c);
 	}
 	// Update is called once per frame
 	void Update ()
