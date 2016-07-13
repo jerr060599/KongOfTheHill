@@ -11,6 +11,11 @@ public abstract class Activatable : MonoBehaviour
 
 	void Start ()
 	{
+		init ();
+	}
+
+	public void init ()
+	{
 		sr = GetComponent<SpriteRenderer> ();
 		if (activated)
 			sr.sprite = activatedTex;
