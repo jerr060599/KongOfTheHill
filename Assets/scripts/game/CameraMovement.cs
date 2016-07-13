@@ -4,7 +4,7 @@ using System.Collections;
 public class CameraMovement : MonoBehaviour
 {
 	public GameObject c0, c1, bg;
-	float sizeScale = 0.5f;
+	public float sizeScale = 0.55f;
 	Vector3 shakePos = Vector3.zero, curPos;
 	Camera cam;
 	public static CameraMovement script;
