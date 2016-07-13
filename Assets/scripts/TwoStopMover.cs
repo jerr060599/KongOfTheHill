@@ -40,7 +40,7 @@ public class TwoStopMover : Activatable
 				pysc.velocity = dir.normalized * velocity;
 			if ((toPointOne ? -1f : 1f) * (dir.x * dx + dir.y * dy) <= 0f) {
 				pysc.velocity = Vector3.zero;
-				pysc.position = toPointOne ? new Vector2 (x1, x2) : new Vector2 (x2, y2);
+				pysc.position = toPointOne ? new Vector2 (x1, y1) : new Vector2 (x2, y2);
 				stopTime = pause;
 				toPointOne = !toPointOne;
 			}
