@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TwoStopMover : MonoBehaviour
+public class TwoStopMover : Activatable
 {
 	public float x2, y2;
 	public float velocity;
@@ -12,11 +12,19 @@ public class TwoStopMover : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		if (chainedActivatable != null)
+			nextActivatable = chainedActivatable.GetComponent<Activatable> ();
 		x1 = transform.position.x;
 		y1 = transform.position.y;
 		dx = x2 - x1;
 		dy = y2 - y1;
 		pysc = GetComponent<Rigidbody2D> ();
+		stopTime = pause;
+	}
+
+	public override void activate (CharControl c)
+	{
+		stopTime = 0f;
 	}
 	// Update is called once per frame
 	void Update ()
@@ -31,6 +39,8 @@ public class TwoStopMover : MonoBehaviour
 			if (pysc.velocity.x == 0 && pysc.velocity.y == 0)
 				pysc.velocity = dir.normalized * velocity;
 			if ((toPointOne ? -1f : 1f) * (dir.x * dx + dir.y * dy) <= 0f) {
+				pysc.velocity = Vector3.zero;
+				pysc.position = toPointOne ? new Vector2 (x1, y1) : new Vector2 (x2, y2);
 				stopTime = pause;
 				toPointOne = !toPointOne;
 			}

@@ -36,11 +36,11 @@ public abstract class Consumable : MonoBehaviour
 		}
 	}
 
-	public void use (GameObject player)
+	public void use (CharControl player)
 	{
 		onConsumption (player);
 		time = respawnTime;
 	}
 
-	public abstract void onConsumption (GameObject player);
+	public abstract void onConsumption (CharControl player);
 }

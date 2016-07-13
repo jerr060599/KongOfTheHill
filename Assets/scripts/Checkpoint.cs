@@ -3,7 +3,8 @@ using System.Collections;
 
 public class Checkpoint : Activatable
 {
-	public Sprite blue, orange, neutral;
+	public Sprite neutral;
+	public GameObject blueLight, orangeLight;
 	Checkpoint tmp;
 	CharControl curOwner = null;
 
@@ -14,12 +15,18 @@ public class Checkpoint : Activatable
 		if (curOwner != null)
 			curOwner.curSpawn = curOwner.baseSpawn;
 		curOwner = player;
-		sr.sprite = player.player == 0 ? orange : blue;
+		orangeLight.SetActive (false);
+		blueLight.SetActive (false);
+		(player.player == 0 ? orangeLight : blueLight).SetActive (true);
+		GetComponent<Animator> ().SetInteger ("state", player.player);
 		player.curSpawn = gameObject;
 	}
 
 	public void disown ()
 	{
 		sr.sprite = neutral;
+		orangeLight.SetActive (false);
+		blueLight.SetActive (false);
+		GetComponent<Animator> ().SetInteger ("state", -1);
 	}
 }
