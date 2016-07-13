@@ -11,18 +11,18 @@ public abstract class Activatable : MonoBehaviour
 
 	void Start ()
 	{
+		sr = GetComponent<SpriteRenderer> ();
+		if (chainedActivatable != null)
+			nextActivatable = chainedActivatable.GetComponent<Activatable> ();
 		init ();
 	}
 
-	public void init ()
+	public virtual void init ()
 	{
-		sr = GetComponent<SpriteRenderer> ();
 		if (activated)
 			sr.sprite = activatedTex;
 		else
 			sr.sprite = deactivatedTex;
-		if (chainedActivatable != null)
-			nextActivatable = chainedActivatable.GetComponent<Activatable> ();
 	}
 
 	public virtual void activate (CharControl player)

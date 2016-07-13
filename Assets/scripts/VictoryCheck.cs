@@ -22,6 +22,8 @@ public class VictoryCheck : Activatable
 		player.curSpawn = gameObject;
 		text.GetComponent<UnityEngine.UI.Text> ().text = player.player == 0 ? "Orange has won!" : "Blue has won!";
 		text.GetComponent<UnityEngine.UI.Text> ().enabled = true;
+		if (nextActivatable != null)
+			nextActivatable.activate (player);
 	}
 
 	public void disown ()

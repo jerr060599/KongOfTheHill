@@ -103,8 +103,9 @@ public class CharControl : MonoBehaviour
 		if (onLadder)
 			pysc.velocity = new Vector2 (pysc.velocity.x, Settings.ladderSpeed);
 		else if (canJump) {
-			SoundManager.script.playOnListener (SoundManager.script.jump0);
+			SoundManager.script.playOnListener (Random.value < 0.5 ? SoundManager.script.jump0 : SoundManager.script.jump1);
 			pysc.AddForce (new Vector2 (0, jumpF));
+			pysc.velocity = new Vector2 (pysc.velocity.x * 0.2f, pysc.velocity.y);
 			jumpTime = jumpCD;
 		}
 		if (onLadder && Mathf.Abs (lastJuicePos.y - pysc.position.y) > pixelPerSound) {

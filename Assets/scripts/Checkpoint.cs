@@ -20,6 +20,8 @@ public class Checkpoint : Activatable
 		(player.player == 0 ? orangeLight : blueLight).SetActive (true);
 		GetComponent<Animator> ().SetInteger ("state", player.player);
 		player.curSpawn = gameObject;
+		if (nextActivatable != null)
+			nextActivatable.activate (player);
 	}
 
 	public void disown ()
