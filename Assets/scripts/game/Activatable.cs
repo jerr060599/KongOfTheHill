@@ -3,7 +3,7 @@ using System.Collections;
 
 public abstract class Activatable : MonoBehaviour
 {
-	public bool activated = false;
+	public bool activated = false, playerActivatable = true;
 	public GameObject chainedActivatable = null;
 	public Sprite activatedTex, deactivatedTex;
 	protected Activatable nextActivatable = null;

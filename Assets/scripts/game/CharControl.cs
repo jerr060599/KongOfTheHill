@@ -66,7 +66,7 @@ public class CharControl : MonoBehaviour
 			if (use) {
 				Activatable a;
 				foreach (RaycastHit2D rh in hits)
-					if ((a = rh.collider.gameObject.GetComponent<Activatable> ()) != null)
+					if ((a = rh.collider.gameObject.GetComponent<Activatable> ()) != null && a.playerActivatable)
 						a.activate (this);
 			}
 			if (push) {
