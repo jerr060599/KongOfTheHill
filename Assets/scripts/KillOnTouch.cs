@@ -7,6 +7,8 @@ public class KillOnTouch : MonoBehaviour
 	// Use this for initialization
 	void OnCollisionEnter2D (Collision2D c)
 	{
+		if (c.collider.attachedRigidbody == null)
+			return;
 		CharControl cc = c.collider.attachedRigidbody.gameObject.GetComponent<CharControl> ();
 		if (cc != null) {
 			cc.kill ();
