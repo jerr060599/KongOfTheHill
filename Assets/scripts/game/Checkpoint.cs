@@ -27,6 +27,7 @@ public class Checkpoint : Activatable
 	public void disown ()
 	{
 		sr.sprite = neutral;
+		GetComponent<Animator> ().SetInteger ("state", -1);
 		orangeLight.SetActive (false);
 		blueLight.SetActive (false);
 		GetComponent<Animator> ().SetInteger ("state", -1);

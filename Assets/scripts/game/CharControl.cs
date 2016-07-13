@@ -118,7 +118,7 @@ public class CharControl : MonoBehaviour
 			SoundManager.script.playOnListener (variate ? SoundManager.script.climb0 : SoundManager.script.climb1);
 			lastJuicePos = pysc.position;
 			variate = !variate;
-		} else if (canWalk && (lastJuicePos - pysc.position).sqrMagnitude > pixelPerSound * pixelPerSound) {
+		} else if (canWalk && (lastJuicePos - pysc.position).sqrMagnitude > 15f) {
 			sr.sprite = variate ? walk0 : walk1;
 			SoundManager.script.playOnListener (variate ? SoundManager.script.walk0 : SoundManager.script.walk1, 0.25f);
 			lastJuicePos = pysc.position;

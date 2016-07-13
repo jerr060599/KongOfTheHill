@@ -3,10 +3,10 @@ using System.Collections;
 
 public static class Settings
 {
-	public static float defCharSpeed = 64f;
+	public static float defCharSpeed = 40f;
 	public static float defJumpF = 7600f;
 	public static float sideSlip = 400f;
-	public static float maxSideSlip = 60f;
+	public static float maxSideSlip = 45f;
 	public static float maxYV = 73.21f;
 	public static float pushF = 10000f;
 	public static float ladderSpeed = 50f;
