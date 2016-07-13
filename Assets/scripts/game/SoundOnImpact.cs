@@ -8,7 +8,6 @@ public class SoundOnImpact : OnImpact
 
 	public override void impact ()
 	{
-		Debug.Log ("Here");
 		SoundManager.script.playOnListener (sound, volume);
 	}
 }

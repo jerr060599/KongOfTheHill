@@ -88,7 +88,7 @@ public class CharControl : MonoBehaviour
 		//if (!(left || right || up))
 		//	return;
 		Vector2 norm = new Vector2 (0, 0);
-		foreach (RaycastHit2D rh in Physics2D.CircleCastAll(feet.transform.position, 3f, Vector2.down, 0.2f))
+		foreach (RaycastHit2D rh in Physics2D.CircleCastAll(feet.transform.position, 3f, Vector2.down, 0.1f))
 			if (!rh.collider.isTrigger && rh.normal.y > 0.3) {
 				norm += rh.normal;
 				canJump = true;
