@@ -3,9 +3,10 @@ using System.Collections;
 
 public abstract class Activatable : MonoBehaviour
 {
-	public bool activated = false;
-	public GameObject chainedActivatable = null;
+	public bool activated = false, playerActivatable = true;
+	public GameObject chainedActivatable = null, radioGroup = null;
 	public Sprite activatedTex, deactivatedTex;
+	RadioGroup rg = null;
 	protected Activatable nextActivatable = null;
 	protected SpriteRenderer sr;
 
@@ -14,6 +15,10 @@ public abstract class Activatable : MonoBehaviour
 		sr = GetComponent<SpriteRenderer> ();
 		if (chainedActivatable != null)
 			nextActivatable = chainedActivatable.GetComponent<Activatable> ();
+		if (radioGroup != null)
+			rg = radioGroup.GetComponent<RadioGroup> ();
+		if (rg != null)
+			rg.register (this);
 		init ();
 	}
 
@@ -35,6 +40,8 @@ public abstract class Activatable : MonoBehaviour
 			sr.sprite = activatedTex;
 			activated = true;
 			onActivation (player);
+			if (rg != null)
+				rg.checkout (this, player);
 		}
 		if (nextActivatable != null)
 			nextActivatable.activate (player);

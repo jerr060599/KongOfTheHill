@@ -27,8 +27,8 @@ public class CharControl : MonoBehaviour
 	public void kill ()
 	{
 		pysc.velocity = Vector2.zero;
-		transform.position = new Vector3 (curSpawn.transform.position.x, curSpawn.transform.position.y + 4f, 0f);
-		SoundManager.script.playOnListener (SoundManager.script.death0);
+		transform.position = new Vector3 (curSpawn.transform.position.x, curSpawn.transform.position.y - 4f, 0f);
+		//SoundManager.script.playOnListener (SoundManager.script.death0, 0.4f);
 	}
 
 	public bool eat (Consumable c)
@@ -36,6 +36,7 @@ public class CharControl : MonoBehaviour
 		if (item == null) {
 			item = c;
 			itemIcon.GetComponent<UnityEngine.UI.Image> ().sprite = c.icon;
+			SoundManager.script.playOnListener (SoundManager.script.pickup0, 0.8f);
 			itemIcon.SetActive (true);
 			return true;
 		}
@@ -66,7 +67,7 @@ public class CharControl : MonoBehaviour
 			if (use) {
 				Activatable a;
 				foreach (RaycastHit2D rh in hits)
-					if ((a = rh.collider.gameObject.GetComponent<Activatable> ()) != null)
+					if ((a = rh.collider.gameObject.GetComponent<Activatable> ()) != null && a.playerActivatable)
 						a.activate (this);
 			}
 			if (push) {
@@ -88,7 +89,7 @@ public class CharControl : MonoBehaviour
 		//if (!(left || right || up))
 		//	return;
 		Vector2 norm = new Vector2 (0, 0);
-		foreach (RaycastHit2D rh in Physics2D.CircleCastAll(feet.transform.position, 3f, Vector2.down, 0.2f))
+		foreach (RaycastHit2D rh in Physics2D.CircleCastAll(feet.transform.position, 3f, Vector2.down, 0.1f))
 			if (!rh.collider.isTrigger && rh.normal.y > 0.3) {
 				norm += rh.normal;
 				canJump = true;
@@ -109,7 +110,7 @@ public class CharControl : MonoBehaviour
 		if (onLadder)
 			pysc.velocity = new Vector2 (pysc.velocity.x, Settings.ladderSpeed);
 		else if (canJump) {
-			SoundManager.script.playOnListener (Random.value < 0.5 ? SoundManager.script.jump0 : SoundManager.script.jump1);
+			SoundManager.script.playOnListener (Random.value < 0.5 ? SoundManager.script.jump0 : SoundManager.script.jump1, 0.7f);
 			pysc.AddForce (new Vector2 (0, jumpF));
 			pysc.velocity = new Vector2 (pysc.velocity.x * 0.2f, pysc.velocity.y);
 			jumpTime = jumpCD;
@@ -118,7 +119,7 @@ public class CharControl : MonoBehaviour
 			SoundManager.script.playOnListener (variate ? SoundManager.script.climb0 : SoundManager.script.climb1);
 			lastJuicePos = pysc.position;
 			variate = !variate;
-		} else if (canWalk && (lastJuicePos - pysc.position).sqrMagnitude > pixelPerSound * pixelPerSound) {
+		} else if (canWalk && (lastJuicePos - pysc.position).sqrMagnitude > 15f) {
 			sr.sprite = variate ? walk0 : walk1;
 			SoundManager.script.playOnListener (variate ? SoundManager.script.walk0 : SoundManager.script.walk1, 0.25f);
 			lastJuicePos = pysc.position;

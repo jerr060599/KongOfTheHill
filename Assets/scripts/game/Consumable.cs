@@ -5,7 +5,7 @@ public abstract class Consumable : MonoBehaviour
 {
 	public Sprite icon;
 	public float respawnTime;
-	public float time;
+	float time;
 	SpriteRenderer sr;
 	Collider2D col;
 

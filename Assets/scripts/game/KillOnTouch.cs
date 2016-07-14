@@ -4,6 +4,8 @@ using System.Collections;
 public class KillOnTouch : MonoBehaviour
 {
 	public Sprite bloodied = null;
+	public AudioClip sound = null;
+	public float volume = 1f;
 	// Use this for initialization
 	void OnCollisionEnter2D (Collision2D c)
 	{
@@ -14,6 +16,8 @@ public class KillOnTouch : MonoBehaviour
 			cc.kill ();
 			if (bloodied != null)
 				GetComponent<SpriteRenderer> ().sprite = bloodied;
+			if (sound != null)
+				SoundManager.script.playOnListener (sound, volume);
 		}
 	}
 }

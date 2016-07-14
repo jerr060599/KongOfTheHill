@@ -3,8 +3,8 @@ using System.Collections;
 
 public class CameraMovement : MonoBehaviour
 {
-	public GameObject c0, c1, bg;
-	float sizeScale = 0.5f;
+	public GameObject c0, c1, bg, para;
+	public float sizeScale = 0.55f, paraScale = 0.2f;
 	Vector3 shakePos = Vector3.zero, curPos;
 	Camera cam;
 	public static CameraMovement script;
@@ -22,6 +22,7 @@ public class CameraMovement : MonoBehaviour
 		shakePos *= 0.7f;
 		cam.orthographicSize += (Mathf.Max (64f, (c0.transform.position - c1.transform.position).magnitude * sizeScale) - (float)cam.orthographicSize) * 0.1f;
 		bg.transform.localScale = new Vector3 (cam.orthographicSize, cam.orthographicSize, 1f) / 64f;
+		para.transform.localPosition = new Vector3 (transform.position.x*paraScale,para.transform.localPosition.y,para.transform.localPosition.z);
 	}
 
 	public void shake ()
