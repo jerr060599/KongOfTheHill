@@ -4,6 +4,7 @@ using System.Collections;
 public class Button : Activatable
 {
 	public float coolDown = 1f;
+	public AudioClip sound;
 	float time;
 
 	public override void init ()
@@ -14,6 +15,7 @@ public class Button : Activatable
 	{
 		if (time <= 0f) {
 			sr.sprite = deactivatedTex;
+			SoundManager.script.playOnListener (sound, 0.7f);
 			time = coolDown;
 			if (nextActivatable != null)
 				nextActivatable.activate (player);
