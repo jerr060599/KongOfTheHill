@@ -5,13 +5,14 @@ public class CharControl : MonoBehaviour
 {
 	public GameObject head, feet, baseSpawn, itemIcon;
 	public int player;
-	public bool canJump = false, canWalk = false, onLadder = false;
+	public bool canJump = false, canWalk = false, onLadder = false, isDank = false;
 	float speed = Settings.defCharSpeed, jumpF = Settings.defJumpF, jumpTime = 0f, pushTime = 0f;
 	public static readonly float jumpCD = 0.05f, pushCD = 1f, pixelPerSound = 8f;
 	public Consumable item = null;
 	public Rigidbody2D pysc;
 	public GameObject curSpawn;
 	public Sprite walk0, walk1, fallDown, fallUp;
+	public Sprite walk0D, walk1D, fallDownD, fallUpD;
 	SpriteRenderer sr;
 	bool variate = false;
 	Vector2 lastJuicePos;
@@ -120,14 +121,14 @@ public class CharControl : MonoBehaviour
 			lastJuicePos = pysc.position;
 			variate = !variate;
 		} else if (canWalk && (lastJuicePos - pysc.position).sqrMagnitude > 15f) {
-			sr.sprite = variate ? walk0 : walk1;
+			sr.sprite = variate ? (isDank ? walk0D : walk0) : (isDank ? walk1D : walk1);
 			SoundManager.script.playOnListener (variate ? SoundManager.script.walk0 : SoundManager.script.walk1, 0.25f);
 			lastJuicePos = pysc.position;
 			variate = !variate;
 		} else if (!onLadder)
-			sr.sprite = variate ? walk0 : walk1;
+			sr.sprite = variate ? (isDank ? walk0D : walk0) : (isDank ? walk1D : walk1);
 		if (!canWalk && !onLadder)
-			sr.sprite = pysc.velocity.y > 0 ? fallUp : fallDown;
+			sr.sprite = pysc.velocity.y > 0 ? (isDank ? fallUpD : fallUp) : (isDank ? fallDownD : fallDown);
 		onLadder = false;
 	}
 }
