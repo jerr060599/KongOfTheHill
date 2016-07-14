@@ -17,5 +17,8 @@ public class Grenade : Consumable
 			if ((player.pysc.position - c0.pysc.position).sqrMagnitude <= r * r)
 				c0.kill ();
 		}
+		foreach (RaycastHit2D rh in Physics2D.CircleCastAll(player.gameObject.transform.position, r, Vector2.down, 0f))
+			if (rh.collider.attachedRigidbody != null && rh.collider.attachedRigidbody.gameObject.GetComponent<ConstantRoll> () != null)
+				Destroy (rh.collider.attachedRigidbody.gameObject);
 	}
 }

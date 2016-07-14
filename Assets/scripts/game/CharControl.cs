@@ -28,7 +28,7 @@ public class CharControl : MonoBehaviour
 	{
 		pysc.velocity = Vector2.zero;
 		transform.position = new Vector3 (curSpawn.transform.position.x, curSpawn.transform.position.y + 4f, 0f);
-		SoundManager.script.playOnListener (SoundManager.script.death0, 0.4f);
+		//SoundManager.script.playOnListener (SoundManager.script.death0, 0.4f);
 	}
 
 	public bool eat (Consumable c)
@@ -36,6 +36,7 @@ public class CharControl : MonoBehaviour
 		if (item == null) {
 			item = c;
 			itemIcon.GetComponent<UnityEngine.UI.Image> ().sprite = c.icon;
+			SoundManager.script.playOnListener (SoundManager.script.pickup0, 0.8f);
 			itemIcon.SetActive (true);
 			return true;
 		}
@@ -109,7 +110,7 @@ public class CharControl : MonoBehaviour
 		if (onLadder)
 			pysc.velocity = new Vector2 (pysc.velocity.x, Settings.ladderSpeed);
 		else if (canJump) {
-			SoundManager.script.playOnListener (Random.value < 0.5 ? SoundManager.script.jump0 : SoundManager.script.jump1);
+			SoundManager.script.playOnListener (Random.value < 0.5 ? SoundManager.script.jump0 : SoundManager.script.jump1, 0.7f);
 			pysc.AddForce (new Vector2 (0, jumpF));
 			pysc.velocity = new Vector2 (pysc.velocity.x * 0.2f, pysc.velocity.y);
 			jumpTime = jumpCD;
