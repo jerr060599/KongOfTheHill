@@ -16,14 +16,15 @@ public class ConstantRoll : MonoBehaviour
 		if (c.collider.attachedRigidbody == null)
 			return;
 		ConstantRoll cr;
-		if ((cr = c.collider.attachedRigidbody.GetComponent<ConstantRoll> ()) != null)
-		if (w * cr.w < 0f && gameObject.transform.position.x - cr.gameObject.transform.position.x > 0f && pysc.velocity.x <= 0f && cr.pysc.velocity.x >= 0f) {
-			w *= -1f;
-			cr.w *= -1f;
-			CameraMovement.script.shake ();
-			SoundOnImpact si;
-			if ((si = gameObject.GetComponent<SoundOnImpact> ()) != null)
-				si.impact ();
+		if ((cr = c.collider.attachedRigidbody.GetComponent<ConstantRoll> ()) != null) {
+			if (w * cr.w < 0f && gameObject.transform.position.x - cr.gameObject.transform.position.x > 0f) {
+				w *= -1f;
+				cr.w *= -1f;
+				CameraMovement.script.shake ();
+				SoundOnImpact si;
+				if ((si = gameObject.GetComponent<SoundOnImpact> ()) != null)
+					si.impact ();
+			}
 		}
 	}
 

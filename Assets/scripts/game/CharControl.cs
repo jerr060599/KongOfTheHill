@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CharControl : MonoBehaviour
 {
-	public GameObject head, feet, baseSpawn, itemIcon;
+	public GameObject head, feet, baseSpawn, itemIcon, death;
 	public int player;
 	public bool canJump = false, canWalk = false, onLadder = false, isDank = false;
 	float speed = Settings.defCharSpeed, jumpF = Settings.defJumpF, jumpTime = 0f, pushTime = 0f;
@@ -27,9 +27,16 @@ public class CharControl : MonoBehaviour
 
 	public void kill ()
 	{
+		((GameObject)Instantiate (death, transform.position + (new Vector3 (0f, 12f, 0f)), transform.rotation)).GetComponent<RespawnAni> ().player = this;
+		gameObject.SetActive (false);
+		//SoundManager.script.playOnListener (SoundManager.script.death0, 0.4f);
+	}
+
+	public void respawn ()
+	{
+		gameObject.SetActive (true);
 		pysc.velocity = Vector2.zero;
 		transform.position = new Vector3 (curSpawn.transform.position.x, curSpawn.transform.position.y - 4f, 0f);
-		//SoundManager.script.playOnListener (SoundManager.script.death0, 0.4f);
 	}
 
 	public bool eat (Consumable c)

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class PauseMenu : MonoBehaviour
@@ -27,9 +28,8 @@ public class PauseMenu : MonoBehaviour
 			Cursor.visible = paused;
 			bgm.mute = paused;
 		}
-		if (Input.GetKeyDown (Settings.keys [Settings.ui, Settings.menu])) {
-			Debug.Log ("Menu");
-		}
+		if (Input.GetKeyDown (Settings.keys [Settings.ui, Settings.menu]))
+			SceneManager.LoadScene ("mainMenu");
 		canvas.SetAlpha (canvas.GetAlpha () + (alpha - canvas.GetAlpha ()) * 0.1f);
 		if (canvas.GetAlpha () < 0.5f)
 			GetComponent<Canvas> ().enabled = false;

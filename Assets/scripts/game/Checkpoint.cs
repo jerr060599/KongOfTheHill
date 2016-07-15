@@ -34,5 +34,6 @@ public class Checkpoint : Activatable
 		orangeLight.SetActive (false);
 		blueLight.SetActive (false);
 		GetComponent<Animator> ().SetInteger ("state", -1);
+		curOwner = null;
 	}
 }
